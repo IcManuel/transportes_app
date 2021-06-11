@@ -50,4 +50,56 @@ class LocalidadBloc extends ChangeNotifier {
       this._desde = prefs.localidadDesde!;
     }
   }
+
+  void seleccionarLocalidad(BuildContext context, int index) {
+    Preferencias pref = Preferencias();
+    if (this._llamaDesde == 1) {
+      this._desde = this._localidades[index];
+      pref.localidadDesde = this._localidades[index];
+      notifyListeners();
+      Navigator.of(context).pop();
+    } else {
+      print(this._desde.id);
+      print(this._hasta.id);
+      if (this._desde.id != -1) {
+        if (this._desde.id != this._localidades[index].id) {
+          this._hasta = this._localidades[index];
+          notifyListeners();
+          Navigator.of(context).pop();
+        } else {
+          print('Entra en el else');
+          showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text('Error'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30.0),
+                      child:
+                          Text('No se puede seleccionar la misma localidad '),
+                    ),
+                  ],
+                ),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Ok'))
+                ],
+              );
+            },
+          );
+        }
+      } else {
+        this._hasta = this._localidades[index];
+        notifyListeners();
+        Navigator.of(context).pop();
+      }
+    }
+  }
 }

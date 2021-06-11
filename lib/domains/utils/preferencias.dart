@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:app_transporte/models/localidad.dart';
-import 'package:app_transporte/models/transporte.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferencias {

@@ -1,5 +1,4 @@
 import 'package:app_transporte/domains/bloc/localidad_bloc.dart';
-import 'package:app_transporte/domains/utils/preferencias.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,14 +19,7 @@ class ItemLocationWidget extends StatelessWidget {
     final localidadBloc = Provider.of<LocalidadBloc>(context);
     return InkWell(
       onTap: () {
-        Preferencias pref = Preferencias();
-        if (localidadBloc.llamaDesde == 1) {
-          localidadBloc.desde = localidadBloc.localidades[this.index];
-          pref.localidadDesde = localidadBloc.localidades[this.index];
-        } else {
-          localidadBloc.hasta = localidadBloc.localidades[this.index];
-        }
-        Navigator.of(context).pop();
+        localidadBloc.seleccionarLocalidad(context, index);
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),

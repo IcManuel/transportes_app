@@ -1,5 +1,5 @@
 class Webservice {
-  static final dominio = "https://76d1c543d17e.ngrok.io";
+  static final dominio = "https://2cd32cda7286.ngrok.io";
   static final obtenerLocalidades = dominio + "/api/localidad/obtenerTodos";
   static final obtenerTiposTransporte =
       dominio + "/api/tipo_transporte/obtenerTodos";
