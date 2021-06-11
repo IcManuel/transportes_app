@@ -13,23 +13,27 @@ String transporteModelToJson(TransporteModel data) =>
 class TransporteModel {
   TransporteModel({
     required this.id,
+    this.codigo = "",
     required this.nombre,
     required this.imagen,
   });
 
   int id;
+  String codigo;
   String nombre;
   String imagen;
 
   factory TransporteModel.fromJson(Map<String, dynamic> json) =>
       TransporteModel(
         id: json["id"],
+        codigo: json["codigo"],
         nombre: json["nombre"],
         imagen: json["imagen"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "codigo": codigo,
         "nombre": nombre,
         "imagen": imagen,
       };

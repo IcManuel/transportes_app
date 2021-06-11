@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:app_transporte/models/localidad.dart';
 import 'package:app_transporte/models/responses/localidad_response.dart';
@@ -21,7 +20,7 @@ class LocalidadService {
         return [];
       }
     } catch (error) {
-      log(error.toString());
+      print(error.toString());
       return [];
     }
   }

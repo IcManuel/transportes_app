@@ -1,4 +1,5 @@
 import 'package:app_transporte/domains/bloc/localidad_bloc.dart';
+import 'package:app_transporte/domains/bloc/tipo_transporte_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Provider.of<LocalidadBloc>(context, listen: false).cargarDatos();
+    Provider.of<TipoTransporteBloc>(context, listen: false).cargarDatos();
+    Provider.of<LocalidadBloc>(context, listen: false).cargarLocalidadDesde();
     // sacarVersion();
     Future.delayed(Duration(seconds: 1), () {
       Navigator.pushReplacementNamed(context, 'inicio');

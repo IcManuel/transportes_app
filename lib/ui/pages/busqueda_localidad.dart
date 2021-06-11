@@ -11,29 +11,35 @@ class BusquedadLocalidadPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final localidadBloc = Provider.of<LocalidadBloc>(context);
     final size = MediaQuery.of(context).size;
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: ColoresUtils.colorUno,
-          title: Text(
-            'Seleccionar localidad',
-            style: TextStyle(
-              fontSize: size.height * 0.018,
+    return localidadBloc.cargando
+        ? Container(
+            child: Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
-        ),
-        body: ListView.builder(
-          itemBuilder: (_, int index) {
-            final l = localidadBloc.localidades[index];
-            return ItemLocationWidget(
-              size: size,
-              texto: l.nombre,
-              index: index,
-            );
-          },
-          itemCount: localidadBloc.localidades.length,
-        ),
-      ),
-    );
+          )
+        : Container(
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: ColoresUtils.colorUno,
+                title: Text(
+                  'Seleccionar localidad',
+                  style: TextStyle(
+                    fontSize: size.height * 0.018,
+                  ),
+                ),
+              ),
+              body: ListView.builder(
+                itemBuilder: (_, int index) {
+                  final l = localidadBloc.localidades[index];
+                  return ItemLocationWidget(
+                    size: size,
+                    texto: l.nombre,
+                    index: index,
+                  );
+                },
+                itemCount: localidadBloc.localidades.length,
+              ),
+            ),
+          );
   }
 }

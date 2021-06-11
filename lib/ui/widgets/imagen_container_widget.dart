@@ -1,6 +1,9 @@
 import 'package:animator/animator.dart';
 import 'package:app_transporte/domains/bloc/localidad_bloc.dart';
+import 'package:app_transporte/domains/bloc/tipo_transporte_bloc.dart';
 import 'package:app_transporte/ui/utils/colores_utils.dart';
+import 'package:app_transporte/ui/utils/webservice.dart';
+import 'package:app_transporte/ui/widgets/input_busqueda_tt.dart';
 import 'package:app_transporte/ui/widgets/input_busqueda_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -17,6 +20,7 @@ class ImagenContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localidadBloc = Provider.of<LocalidadBloc>(context);
+    final tipoTransBloc = Provider.of<TipoTransporteBloc>(context);
     return Container(
       width: double.infinity,
       height: size.height * .4,
@@ -65,10 +69,17 @@ class ImagenContainerWidget extends StatelessWidget {
               opacity: .8,
               child: Image.network(
                 localidadBloc.desde.id == -1
-                    ? 'https://www.roamingaroundtheworld.com/wp-content/uploads/2019/03/Cuenca-sign.jpg'
+                    ? Webservice.imagenDefecto
+                    // ignore: unnecessary_null_comparison
                     : localidadBloc.desde.imagen == null
-                        ? 'https://www.roamingaroundtheworld.com/wp-content/uploads/2019/03/Cuenca-sign.jpg'
+                        ? Webservice.imagenDefecto
                         : localidadBloc.desde.imagen,
+                key: ValueKey(localidadBloc.desde.id == -1
+                    ? Webservice.imagenDefecto
+                    // ignore: unnecessary_null_comparison
+                    : localidadBloc.desde.imagen == null
+                        ? Webservice.imagenDefecto
+                        : localidadBloc.desde.imagen),
                 fit: BoxFit.cover,
                 loadingBuilder: (BuildContext context, Widget child,
                     ImageChunkEvent? loadingProgress) {
@@ -114,13 +125,16 @@ class ImagenContainerWidget extends StatelessWidget {
                     seleccionado: localidadBloc.hasta.id == -1 ? false : true,
                     llamaDesde: 2,
                   ),
-                  InputBusquedaWidget(
+                  InputBusquedaTTWidget(
                     label: 'Viajas en: ',
                     size: size,
-                    texto: '¿En qué vas?',
+                    texto: tipoTransBloc.transporte.id == -1
+                        ? '¿En qué vas?'
+                        : tipoTransBloc.transporte.nombre,
                     pagina: 'buscar-transporte',
-                    seleccionado: false,
-                    bloc: localidadBloc,
+                    seleccionado:
+                        tipoTransBloc.transporte.id == -1 ? false : true,
+                    bloc: tipoTransBloc,
                     llamaDesde: 3,
                   ),
                 ],

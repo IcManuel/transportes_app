@@ -18,7 +18,7 @@ class LocalidadModel {
 
   int id;
   String nombre;
-  dynamic imagen;
+  String imagen;
 
   factory LocalidadModel.fromJson(Map<String, dynamic> json) => LocalidadModel(
         id: json["id"],

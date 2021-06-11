@@ -1,3 +1,4 @@
+import 'package:app_transporte/domains/utils/preferencias.dart';
 import 'package:app_transporte/models/localidad.dart';
 import 'package:app_transporte/models/services/localidad_service.dart';
 import 'package:flutter/material.dart';
@@ -41,5 +42,12 @@ class LocalidadBloc extends ChangeNotifier {
     this._localidades = await LocalidadService.getLocalidades()!;
     this._cargando = false;
     notifyListeners();
+  }
+
+  void cargarLocalidadDesde() {
+    Preferencias prefs = Preferencias();
+    if (prefs.localidadDesde != null) {
+      this._desde = prefs.localidadDesde!;
+    }
   }
 }
